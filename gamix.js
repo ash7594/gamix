@@ -23,9 +23,9 @@ function drawBase() {
 	ctx.stroke();
 }
 
-function drawErection() {
+function drawEruption() {
 
-	var erection = {
+	var eruption = {
 		x: Math.floor(Math.random()*(canvas.width-1) + 1),
 		y: baseline.y,
 		color: baseline.color,
@@ -34,10 +34,10 @@ function drawErection() {
 	};
 
 	ctx.beginPath();
-	ctx.strokeStyle = erection.color;
-	ctx.moveTo(erection.x,erection.y);
-	ctx.lineTo(erection.x,erection.y - erection.height);
-	ctx.lineWidth = erection.width;
+	ctx.strokeStyle = eruption.color;
+	ctx.moveTo(eruption.x,eruption.y);
+	ctx.lineTo(eruption.x,eruption.y - eruption.height);
+	ctx.lineWidth = eruption.width;
 	ctx.closePath();
 	ctx.stroke();
 }
@@ -45,7 +45,7 @@ function drawErection() {
 function render() {
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	drawBase();
-	drawErection();
+	drawEruption();
 }
 
 setInterval(render,10);
