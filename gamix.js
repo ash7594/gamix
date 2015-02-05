@@ -62,10 +62,8 @@ function drawEruption(i) {
 }
 
 function stimulateEruption(e) {
-	if(e.keyCode == 65) {
-		keys[255] = true;
-		eruptionArray[20].height = 100;
-	}
+	keys[e.keyCode] = true;
+	eruptionArray[e.keyCode].height = Math.floor(Math.random()*100+100);
 }
 
 function gradualFall(i) {
@@ -93,7 +91,6 @@ function render() {
 			gradualFall(i);
 			drawEruption(i);
 		}
-		
 	}
 }
 
