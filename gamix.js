@@ -6,7 +6,13 @@ canvas.height = window.innerHeight;
 
 ///////////
 
+document.addEventListener("keydown",stimulateEruption);
+document.addEventListener("keyup",function(e) {
+	keys[e.keyCode] = false;
+});
+
 var eruptionArray = [];
+var keys = [];
 
 function createEruptions() {
 
@@ -15,8 +21,9 @@ function createEruptions() {
 			x: Math.floor(i),
 			y: baseline.y,
 			color: baseline.color,
-			height: Math.floor(Math.random()*200 + 1),
-			width: 5
+			height: Math.floor(Math.random()*200 + 100),
+			width: 5,
+			display: 0
 		};
 
 		eruptionArray.push(eruption);
@@ -52,23 +59,43 @@ function drawEruption(i) {
 	ctx.lineWidth = eruptionArray[i].width;
 	ctx.closePath();
 	ctx.stroke();
-
-	//gradualFall();
 }
 
-function gradualFall() {
-	for(var i=0;i<eruptionArray.length;i++) {
-		eruptionArray[i].height *= 0.98;
+function stimulateEruption(e) {
+	if(e.keyCode == 65) {
+		keys[255] = true;
+		eruptionArray[20].height = 100;
 	}
 }
 
+function gradualFall(i) {
+
+	eruptionArray[i].height *= 0.9;
+
+}
+
 function render() {
+	//eruptionArray = [];
+	//createEruptions();
+	for(var i=0;i<eruptionArray.length;i++) {
+		if(eruptionArray[i].height == 1) {
+			eruptionArray[i].height++;
+		}
+	}
+
 	ctx.clearRect(0,0,canvas.width,canvas.height);
 	drawBase();
 	for(var i=0;i<eruptionArray.length;i++) {
-		drawEruption(i);
+		if(eruptionArray[i].height == 0) {
+			eruptionArray[i].height++;	
+			drawEruption(i);
+		} else {
+			gradualFall(i);
+			drawEruption(i);
+		}
+		
 	}
 }
 
 createEruptions();
-setInterval(render,17);
+setInterval(render,50);
